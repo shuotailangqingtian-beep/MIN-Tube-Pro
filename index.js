@@ -2294,6 +2294,47 @@ app.get("/short-check/:id", async (req, res) => {
 });
 
 
+app.get("/api/light-search", async (req, res, next) => {
+  const query = req.query.q;
+  const startPage = Number(req.query.page) || 0;
+
+  if (!query) {
+    return res.status(400).json({ error: "Query required" });
+  }
+
+  try {
+    const maxPages = 5; 
+    let foundVideo = null;
+
+    for (let page = startPage; page < startPage + maxPages; page++) {
+      const results = await yts.GetListByKeyword(query, false, 20, page);
+
+      const items = Array.isArray(results?.items) ? results.items : [];
+      for (const item of items) {
+        const id = item?.id || item?.videoId || "";
+        const type = item?.type || "";
+
+        if (type === "channel" || String(id).startsWith("UC")) continue;
+
+        if (type === "video" || item?.videoId || (id && !String(id).startsWith("UC"))) {
+          foundVideo = item;
+          break;
+        }
+      }
+
+      if (foundVideo) break;
+    }
+
+    if (!foundVideo) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    res.json(foundVideo);
+  } catch (err) {
+    next(err);
+  }
+});
+
 /**
  * PROXY_DIR/
  * ├── uv/ (sw.js, uv.bundle.js, etc.)
