@@ -3389,5 +3389,78 @@
     ],
     "isNew": true,
     "status": "done"
+  },
+  {
+    "key": "geometry-dash-lite",
+    "name": "Geometry Dash Lite",
+    "emoji": "🟦",
+    "sub": "Geometry Lite PC",
+    "file": "https://geometrylitepc.io/geo-dash-lite-pc.embed",
+    "image": "https://geometrylitepc.io/data/image/posts/geometry-lite-pc-game-banner.png",
+    "desc": "リズムに合わせてジャンプ！中毒性の高いアクションゲーム。",
+    "genre": "action",
+    "genreLabel": "アクション",
+    "players": "1人プレイ",
+    "tags": [
+      "リズム",
+      "アクション",
+      "Geometry Dash"
+    ],
+    "isNew": true,
+    "status": "done"
+  },
+  {
+    "key": "wurst-dash",
+    "name": "Wurst Dash",
+    "emoji": "🌭",
+    "sub": "Geometry Lite PC",
+    "file": "https://geometrylitepc.io/wurst-dash.embed",
+    "image": "https://geometrylitepc.io/cache/data/image/game/wurst-dash-m184x112.jpg",
+    "desc": "ソーセージが駆け抜ける！Geometry Dash風のアクションゲーム。",
+    "genre": "action",
+    "genreLabel": "アクション",
+    "players": "1人プレイ",
+    "tags": [
+      "アクション",
+      "ネタ"
+    ],
+    "isNew": true,
+    "status": "done"
+  },
+  {
+    "key": "geometry-dash-meltdown",
+    "name": "Geometry Dash Meltdown",
+    "emoji": "🔥",
+    "sub": "Geometry Lite PC",
+    "file": "https://geometrylitepc.io/geo-dash-meltdown.embed",
+    "image": "https://geometrylitepc.io/cache/data/image/game/meltdown-version-m184x112.jpg",
+    "desc": "炎と闇の世界を駆け抜けろ！",
+    "genre": "action",
+    "genreLabel": "アクション",
+    "players": "1人プレイ",
+    "tags": [
+      "リズム",
+      "アクション"
+    ],
+    "isNew": true,
+    "status": "done"
+  },
+  {
+    "key": "geometry-dash-subzero",
+    "name": "Geometry Dash SubZero",
+    "emoji": "❄️",
+    "sub": "Geometry Lite PC",
+    "file": "https://geometrylitepc.io/geo-dash-subzero.embed",
+    "image": "https://geometrylitepc.io/cache/data/image/game/sub-zero-m184x112.jpg",
+    "desc": "極寒のステージに挑め！",
+    "genre": "action",
+    "genreLabel": "アクション",
+    "players": "1人プレイ",
+    "tags": [
+      "リズム",
+      "アクション"
+    ],
+    "isNew": true,
+    "status": "done"
   }
 ]
