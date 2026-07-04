@@ -373,6 +373,165 @@
   ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 </style>
+
+<style>
+/* Modern Design Enhancement for MIN-Tube-Pro */
+:root {
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+}
+
+body {
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+}
+
+/* Card Enhancements */
+.card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: var(--shadow-xl) !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Button Enhancements */
+.btn-primary, [class*="btn-primary"] {
+  background: var(--gradient-primary) !important;
+  box-shadow: var(--shadow-lg) !important;
+  transition: all 0.3s ease !important;
+  border: none !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-xl) !important;
+}
+
+/* Header/Navigation */
+header, nav, [class*="header"], [class*="navbar"] {
+  background: rgba(15, 23, 42, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Category Section */
+.category-section {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.3s ease !important;
+}
+
+.category-section:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Grid Layout */
+.grid {
+  gap: 24px !important;
+}
+
+/* Input Fields */
+input, textarea, select {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease !important;
+  border-radius: 12px !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(102, 126, 234, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+}
+
+/* Text Colors */
+h1, h2, h3, h4, h5, h6 {
+  background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Smooth Transitions */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.card {
+  animation: fadeIn 0.5s ease-out !important;
+}
+
+/* Badge Styles */
+.badge, [class*="badge"], .status-indicator {
+  background: var(--gradient-primary) !important;
+  box-shadow: 0 4px 6px -1px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Link Styles */
+a {
+  transition: all 0.2s ease !important;
+}
+
+a:hover {
+  color: #667eea !important;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.5);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.8);
+}
+</style>
 </head>
 <body>
 
@@ -851,6 +1010,13 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
-  </script>
+  
+<script>
+// Override authentication to allow access without account
+const originalS5 = window.S5 || (() => localStorage.getItem('tube_auth') === 'true');
+window.S5 = () => true; // Always allow access
+console.log('✅ Authentication bypass enabled - Access without account allowed');
+</script>
+</script>
 </body>
 </html>
