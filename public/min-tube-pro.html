@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>MIN-Tube-Pro — The Ultimate Hub</title>
+<title>SakuTube-Pro — The Ultimate Hub</title>
 
 <!-- PWA -->
 <link rel="manifest" href="/manifest.json" />
@@ -12,13 +12,13 @@
 <!-- iOS / Safari -->
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="MIN-Tube-Pro" />
+<meta name="apple-mobile-web-app-title" content="SakuTube-Pro" />
 <link rel="apple-touch-icon" href="/min-img.png" />
 
 <!-- Android / OGP -->
 <meta name="mobile-web-app-capable" content="yes" />
-<meta name="application-name" content="MIN-Tube-Pro" />
-<meta property="og:title" content="MIN-Tube-Pro" />
+<meta name="application-name" content="SakuTube-Pro" />
+<meta property="og:title" content="SakuTube-Pro" />
 <meta property="og:description" content="次世代アプリランチャー — すべてを、この一箇所に。" />
 <meta property="og:image" content="/min-img.png" />
 
@@ -30,81 +30,7 @@
 
 
 <style>
-/* ═══════════════════════════════════════════════════════════════
-   ULTRA MODERN DESIGN OVERHAUL - Complete Visual Redesign
-   ═══════════════════════════════════════════════════════════════ */
 
-:root {
-  /* Neon Color Palette */
-  --neon-cyan: #00f0ff;
-  --neon-purple: #c400ff;
-  --neon-pink: #ff006e;
-  --neon-green: #39ff14;
-  --neon-blue: #0080ff;
-  
-  /* Gradients */
-  --gradient-neon: linear-gradient(135deg, #00f0ff 0%, #c400ff 50%, #ff006e 100%);
-  --gradient-dark: linear-gradient(135deg, #0a0e27 0%, #16213e 50%, #0f3460 100%);
-  --gradient-card: linear-gradient(135deg, rgba(0, 240, 255, 0.1) 0%, rgba(196, 0, 255, 0.1) 100%);
-  
-  /* Shadows */
-  --shadow-neon-sm: 0 0 10px rgba(0, 240, 255, 0.3);
-  --shadow-neon-md: 0 0 20px rgba(196, 0, 255, 0.4);
-  --shadow-neon-lg: 0 0 40px rgba(255, 0, 110, 0.5);
-  --shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.8);
-}
-
-/* ─────────────────────────────────────────────────────────────
-   GLOBAL STYLES
-   ───────────────────────────────────────────────────────────── */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  background: var(--gradient-dark);
-  background-attachment: fixed;
-  color: #e0e0e0;
-  font-family: 'Segoe UI', Trebuchet MS, sans-serif;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-
-/* ─────────────────────────────────────────────────────────────
-   HEADER & NAVIGATION
-   ───────────────────────────────────────────────────────────── */
-
-header, nav, [class*="header"], [class*="navbar"] {
-  background: rgba(10, 14, 39, 0.95) !important;
-  backdrop-filter: blur(20px) !important;
-  border-bottom: 2px solid var(--neon-cyan) !important;
-  box-shadow: 0 0 30px rgba(0, 240, 255, 0.2) !important;
-  position: relative;
-  overflow: hidden;
-}
-
-header::before, nav::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.1), transparent);
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
-/* ─────────────────────────────────────────────────────────────
-   BUTTONS & INTERACTIVE ELEMENTS
-   ───────────────────────────────────────────────────────────── */
 
 button, .btn-primary, [class*="btn"], input[type="submit"] {
   background: var(--gradient-neon) !important;
@@ -409,7 +335,7 @@ a:hover::after {
             <div class="app-icon">▶️</div>
             <div class="app-info">
               <div class="app-name"><span class="status-indicator done"></span> Youtube‑Pro</div>
-              <p class="app-desc">MIN-Tube2の進化系。改善されたUIとサーバー処理で、最高級の視聴体験を提供します。</p>
+              <p class="app-desc">SakuTube2の進化系。改善されたUIとサーバー処理で、最高級の視聴体験を提供します。</p>
             </div>
           </div>
           <div class="card-footer">
@@ -430,7 +356,145 @@ a:hover::after {
             <span class="app-path">/dl-pro</span>
             <span class="app-badge">Ultra-Fast</span>
           </div>
-        </article>
+       
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   OPTIMIZED BUTTON LAYOUT & POSITIONING
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Button Container Flexbox */
+.button-container, [class*="button-group"], [class*="btn-group"], 
+.controls, [class*="action-bar"] {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 20px 0 !important;
+}
+
+/* Horizontal Button Layout */
+.button-row, [class*="btn-row"] {
+  display: flex !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+  justify-content: space-around !important;
+}
+
+/* Vertical Button Layout */
+.button-column, [class*="btn-column"] {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+/* Primary Action Button */
+button[class*="primary"], .btn-primary, [class*="action-primary"] {
+  flex: 1 1 auto !important;
+  min-width: 120px !important;
+  order: 1 !important;
+}
+
+/* Secondary Action Button */
+button[class*="secondary"], .btn-secondary, [class*="action-secondary"] {
+  flex: 1 1 auto !important;
+  min-width: 100px !important;
+  order: 2 !important;
+}
+
+/* Tertiary Action Button */
+button[class*="tertiary"], .btn-tertiary, [class*="action-tertiary"] {
+  flex: 1 1 auto !important;
+  min-width: 90px !important;
+  order: 3 !important;
+}
+
+/* Icon Button */
+button[class*="icon"], .btn-icon, [class*="icon-btn"] {
+  padding: 10px 14px !important;
+  min-width: auto !important;
+  border-radius: 50% !important;
+}
+
+/* Floating Action Button */
+.fab, [class*="floating-btn"], [class*="float-action"] {
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 1000 !important;
+  box-shadow: var(--shadow-neon-lg) !important;
+}
+
+/* Responsive Button Layout */
+@media (max-width: 768px) {
+  .button-container, [class*="button-group"] {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  
+  button, .btn-primary, [class*="btn"] {
+    width: 100% !important;
+    min-width: unset !important;
+  }
+  
+  .fab, [class*="floating-btn"] {
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+/* Button Spacing Utilities */
+.btn-spacing-sm {
+  gap: 6px !important;
+}
+
+.btn-spacing-md {
+  gap: 12px !important;
+}
+
+.btn-spacing-lg {
+  gap: 20px !important;
+}
+
+/* Centered Button Layout */
+.btn-center {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+/* Spread Button Layout */
+.btn-spread {
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+/* Stacked Button Layout */
+.btn-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+/* Inline Button Layout */
+.btn-inline {
+  display: inline-flex !important;
+  gap: 8px !important;
+  align-items: center !important;
+}
+</style>
+ </article>
 
         <article class="card" data-endpoint="/wista">
           <div class="card-top">
@@ -772,7 +836,7 @@ a:hover::after {
             <div class="app-icon">🔑</div>
             <div class="app-info">
               <div class="app-name"><span class="status-indicator wip"></span> API Portal</div>
-              <p class="app-desc">MIN-Tube-ProのAPIを利用するための鍵を入手。あなたのアプリを統合可能に。</p>
+              <p class="app-desc">SakuTube-ProのAPIを利用するための鍵を入手。あなたのアプリを統合可能に。</p>
             </div>
           </div>
           <div class="card-footer">
@@ -784,7 +848,7 @@ a:hover::after {
     </section>
 
     <footer style="text-align: center; margin-top: 40px; color: var(--text-dim); font-size: 13px;">
-      <p>&copy; 2026 MIN-Tube-Pro Project. Select an application to launch.</p>
+      <p>&copy; 2026 SakuTube-Pro Project. Select an application to launch.</p>
     </footer>
 
   </div>

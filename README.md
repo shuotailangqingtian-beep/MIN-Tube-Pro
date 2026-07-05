@@ -1,13 +1,13 @@
-# MIN-Tube-Pro
+# SakuTube-Pro
 
 CG / YouTube web app.  
-「MIN-Tube-Pro」は、YouTube や動画視聴をより快適にするための Web アプリです。  
+「SakuTube-Pro」は、YouTube や動画視聴をより快適にするための Web アプリです。  
 ブラウザからすぐにアクセスでき、PC・スマホ問わず軽量に動作することを目指しています。
 
 ### デモ
-- https://min-tube2.vercel.app
-- https://min-tube-pro.vercel.app
-- https://min-tube-pro-roan.vercel.app
+- https://sakutube2.vercel.app
+- https://sakutube-pro.vercel.app
+- https://sakutube-pro-roan.vercel.app
 
 ---
 
@@ -26,15 +26,15 @@ CG / YouTube web app.
 
 ### Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/mino-hobby-pro/MIN-Tube-Pro)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/mino-hobby-pro/SakuTube-Pro)
 
 ### Render
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mino-hobby-pro/MIN-Tube-Pro)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mino-hobby-pro/SakuTube-Pro)
 
 ### Railway
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?templateUrl=https://github.com/mino-hobby-pro/MIN-Tube-Pro)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?templateUrl=https://github.com/mino-hobby-pro/SakuTube-Pro)
 
 ---
 
@@ -135,19 +135,19 @@ node index.js
 - 高評価した動画の一覧を表示可能に
 - 個人用の再生リストを追加
 - デザインを YouTube 風に変更
-- モバイル UI に対応（MIN-Tube-Pro のみ）
+- モバイル UI に対応（SakuTube-Pro のみ）
 - チャンネル閲覧を強化
 - ゲームを2つ追加
 
 ### ver1.1.1
-- MIN-Tube-Pro でライト / ダークモードの切り替えが可能に
+- SakuTube-Pro でライト / ダークモードの切り替えが可能に
 - 設定から再生方法を変更可能に
 - チャンネル閲覧に対応（テスト段階）
 - ゲームを6つ追加
 
 ### ver1.1.0
 - 複数のゲームを追加
-- MIN-Tube-Pro のホーム画面を見やすく変更
+- SakuTube-Pro のホーム画面を見やすく変更
 
 ### ver1.0.4
 - コメントが表示されないバグを修正
@@ -157,7 +157,7 @@ node index.js
 - タイトルとチャンネル名の取得を自動化し、読み込みを高速化
 
 ### ver1.0.2
-- siawaseok 様の API と MIN-Tube2 の API を `Promise.any()` で並列取得する方式に変更
+- siawaseok 様の API と SakuTube2 の API を `Promise.any()` で並列取得する方式に変更
 - どちらかの API が落ちていても取得できるため、Invidious 依存を排除し、動画メタデータ取得の成功率が大幅に向上
 
 ### ver1.0.1
@@ -177,7 +177,7 @@ rhenryw が作成した embeddr という静的なプロキシです。UV の ba
 #### 開発者向け 技術的な概要
 静的なプロキシは多くの場合、コード内で直接ルートを指定し、そのままのパスでファイルへ接続します。そのため、自分のプロジェクトにプロキシを追加しようとすると `Cannot get error` が発生することがあります。これを回避するには、`index.js` 側でパスを書き換え、正しいディレクトリ内のファイルを返すように指示する必要があります。
 
-MIN-Tube-Pro では以下のような技術を使用しています。
+SakuTube-Pro では以下のような技術を使用しています。
 
 ```js
 const PROXY_ENDPOINTS = [
@@ -208,7 +208,7 @@ app.use((req, res, next) => {
 エンドポイントを絞って関数を制限することで、サーバー負荷を減らせます。
 
 ### Abyss V5 について
-もともとは jacksoncraft859 が作成した静的な UV プロキシです。bare サーバーが動かなくなっていたため、dinguschan-owo のサーバーを組み込んで再構成しました。デザインやバグ修正は MIN-Tube-Pro に搭載するために改変されています。  
+もともとは jacksoncraft859 が作成した静的な UV プロキシです。bare サーバーが動かなくなっていたため、dinguschan-owo のサーバーを組み込んで再構成しました。デザインやバグ修正は SakuTube-Pro に搭載するために改変されています。  
 このプロキシを単体で利用したい場合は、以下のリポジトリを推奨します。  
 https://github.com/mino-hobby-pro/UV-Static_Netlify
 
@@ -239,7 +239,7 @@ https://github.com/mino-hobby-pro/UV-Static_Netlify
 
 <div align="center">
 
-### MIN-Tube-Pro™
+### SakuTube-Pro™
 
 © 2026 <a href="https://github.com/mino-hobby-pro">mino-hobby-pro</a>  
 All rights reserved.

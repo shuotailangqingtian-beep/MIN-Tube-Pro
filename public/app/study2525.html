@@ -1428,7 +1428,7 @@ async function fetchComments(videoId) {
   const container = document.getElementById('comments-container');
   container.innerHTML = '<div class="loader">読み込み中...</div>';
   try {
-    const res = await fetch(`https://min-tube-api-3.vercel.app/api/comments/${videoId}`);
+    const res = await fetch(`https://sakutube-api-3.vercel.app/api/comments/${videoId}`);
     const data = await res.json();
     document.getElementById('comment-count').innerText = data.comments ? data.comments.length : 0;
     container.innerHTML = data.comments.slice(0, 15).map(c => `
