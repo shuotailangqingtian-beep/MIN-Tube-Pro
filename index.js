@@ -1433,7 +1433,7 @@ app.get("/youtube-pro", (req, res) => {
 });
 
 app.get("/min-img.png", (req, res) => {
-  const filePath = path.join(__dirname, "img", "sakutube-pro.png");
+  const filePath = path.join(__dirname, "public", "img", "min-tube-pro.png");
   res.sendFile(filePath);
 });
 
@@ -1503,7 +1503,7 @@ app.get("/version", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "raw/version.json"));
 });
 app.get("/ai", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "app/ac.html"));
+  res.sendFile(path.join(__dirname, "public", "app/ai.html"));
 });
 app.get("/vc", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "app/Vc.html"));
