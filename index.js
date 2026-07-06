@@ -1429,7 +1429,7 @@ app.get('/ai-fetch/:videoId', async (req, res) => {
 });
 
 app.get("/youtube-pro", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "sakutube-pro.html"));
+  res.sendFile(path.join(__dirname, "public", "min-tube-pro.html"));
 });
 
 app.get("/min-img.png", (req, res) => {

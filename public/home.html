@@ -254,9 +254,41 @@
       z-index: 100;
       scrollbar-width: none;
       transition: width 0.2s ease;
+      background: var(--bg);
+      border-right: 1px solid var(--border);
     }
     .sidebar::-webkit-scrollbar { display: none; }
     .sidebar.expanded { width: var(--sidebar-width); }
+
+    /* ツールボタン専用スタイル */
+    .sidebar-item.tools-btn {
+      background: linear-gradient(135deg, rgba(62,166,255,0.12) 0%, rgba(100,100,255,0.12) 100%);
+      border: 1px solid rgba(62,166,255,0.25);
+      margin: 4px 6px;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .sidebar-item.tools-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(62,166,255,0.0) 0%, rgba(100,100,255,0.0) 100%);
+      transition: background 0.2s;
+      border-radius: inherit;
+    }
+    .sidebar-item.tools-btn:hover {
+      background: linear-gradient(135deg, rgba(62,166,255,0.22) 0%, rgba(100,100,255,0.22) 100%) !important;
+      border-color: rgba(62,166,255,0.5);
+    }
+    .sidebar-item.tools-btn svg { color: #3ea6ff; fill: #3ea6ff; }
+    .sidebar.expanded .sidebar-item.tools-btn .sidebar-label {
+      background: linear-gradient(90deg, #3ea6ff, #6464ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
 
     .sidebar-item {
       display: flex; align-items: center; gap: 16px;
@@ -1175,10 +1207,10 @@
       <div id="appVersion" class="version-badge"><span class="version-badge-text"></span></div>
 
         <div class="promo-container">
-        <a href="/youtube-pro" class="icon-btn" id="homePromoBtn" title="ホーム" style="text-decoration:none;">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <a href="/youtube-pro" class="icon-btn" id="homePromoBtn" title="ツール・アプリハブ" style="text-decoration:none;position:relative;">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
         </a>
-        <div class="promo-bubble" id="homePromoBubble">その他の機能はコチラから</div>
+        <div class="promo-bubble" id="homePromoBubble">ツール・アプリハブはこちら</div>
       </div>
     </div>
   </header>
@@ -1228,6 +1260,11 @@
       <a href="#" class="sidebar-item lib-nav" onclick="openDrawer('playlists'); return false;">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
         <span class="sidebar-label">再生リスト</span>
+      </a>
+      <hr class="sidebar-divider">
+      <a href="/youtube-pro" class="sidebar-item tools-btn" title="ツール・アプリ">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+        <span class="sidebar-label">ツール</span>
       </a>
     </nav>
 
@@ -2959,6 +2996,10 @@ if (!currentUrl.includes("projects") && !currentUrl.includes("private") && !curr
     <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
     ライブラリ
   </button>
+  <a href="/youtube-pro" class="mobile-nav-item" style="text-decoration:none;color:inherit;">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+    ツール
+  </a>
 </nav>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>

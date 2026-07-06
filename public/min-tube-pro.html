@@ -297,7 +297,539 @@ a:hover::after {
     <div class="orb orb-2"></div>
   </div>
 
-  <div class="wrap" role="main">
+  <!-- ===== SIDEBAR ===== -->
+  <style>
+    :root {
+      --neon-cyan: #00f0ff;
+      --neon-purple: #c400ff;
+      --neon-pink: #ff00c8;
+      --neon-green: #00ff88;
+      --gradient-neon: linear-gradient(135deg, #00f0ff 0%, #c400ff 50%, #ff00c8 100%);
+      --gradient-card: linear-gradient(135deg, rgba(0,240,255,0.08) 0%, rgba(196,0,255,0.08) 100%);
+      --shadow-neon-sm: 0 0 10px rgba(0,240,255,0.2), 0 0 20px rgba(196,0,255,0.1);
+      --shadow-neon-md: 0 0 20px rgba(0,240,255,0.35), 0 0 40px rgba(196,0,255,0.2);
+      --shadow-neon-lg: 0 0 30px rgba(0,240,255,0.5), 0 0 60px rgba(196,0,255,0.3), 0 0 90px rgba(255,0,200,0.15);
+      --text-dim: rgba(200,220,255,0.5);
+      --sidebar-w: 240px;
+      --sidebar-col: 68px;
+      --topbar-h: 60px;
+    }
+
+    /* ベースレイアウト */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: #050816;
+      color: rgba(200,220,255,0.9);
+      font-family: 'Noto Sans JP', 'Syne', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* メッシュ背景 */
+    .mesh-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+    }
+    .orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,240,255,0.5) 0%, transparent 70%);
+      top: -200px; left: -200px;
+      animation: orbFloat1 12s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(196,0,255,0.5) 0%, transparent 70%);
+      bottom: -150px; right: -150px;
+      animation: orbFloat2 15s ease-in-out infinite;
+    }
+    @keyframes orbFloat1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(60px, 40px); }
+    }
+    @keyframes orbFloat2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-50px, -30px); }
+    }
+
+    /* メインコンテンツラッパー */
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 40px 0 32px;
+      border-bottom: 1px solid rgba(0,240,255,0.1);
+      margin-bottom: 32px;
+    }
+    .logo-area {
+      flex-shrink: 0;
+    }
+    .logo-img {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      box-shadow: var(--shadow-neon-md);
+      filter: drop-shadow(0 0 12px rgba(0,240,255,0.5));
+    }
+    .hero-content h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      background: var(--gradient-neon);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    .typewriter-container {
+      min-height: 24px;
+    }
+    .typewriter {
+      font-size: 15px;
+      color: rgba(200,220,255,0.7);
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .typewriter::after {
+      content: '|';
+      animation: blink 0.8s step-end infinite;
+      color: #00f0ff;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ツールバー */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: rgba(0,240,255,0.04);
+      border: 1px solid rgba(0,240,255,0.12);
+      border-radius: 14px;
+      margin-bottom: 32px;
+    }
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--gradient-neon);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .status-legend {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(200,220,255,0.6);
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .dot.done { background: #00ff88; box-shadow: 0 0 6px #00ff88; }
+    .dot.wip { background: #ffaa00; box-shadow: 0 0 6px #ffaa00; }
+
+    /* カテゴリーセクション */
+    .category-section {
+      margin-bottom: 48px;
+    }
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .cat-icon {
+      font-size: 24px;
+      line-height: 1;
+    }
+    .cat-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      background: var(--gradient-neon);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+    .cat-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(0,240,255,0.3), transparent);
+    }
+    .cat-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(0,240,255,0.5);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* カード */
+    .card-top {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .app-icon {
+      font-size: 32px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .app-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .app-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: rgba(200,220,255,0.95);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .app-desc {
+      font-size: 13px;
+      color: rgba(200,220,255,0.55);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,240,255,0.1);
+    }
+    .app-path {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: rgba(0,240,255,0.5);
+    }
+    .app-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(0,240,255,0.1);
+      border: 1px solid rgba(0,240,255,0.2);
+      color: #00f0ff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .status-indicator {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-indicator.done {
+      background: #00ff88;
+      box-shadow: 0 0 5px #00ff88;
+    }
+    .status-indicator.wip {
+      background: #ffaa00;
+      box-shadow: 0 0 5px #ffaa00;
+    }
+    article.card {
+      cursor: pointer;
+    }
+
+    /* トップバー */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--topbar-h);
+      background: rgba(5, 8, 22, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,240,255,0.15);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+      gap: 16px;
+    }
+    .topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .topbar-logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      filter: drop-shadow(0 0 8px rgba(0,240,255,0.5));
+    }
+    .topbar-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      background: var(--gradient-neon);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+    .topbar-spacer { flex: 1; }
+    .topbar-home-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(196,0,255,0.12));
+      border: 1px solid rgba(0,240,255,0.3);
+      color: #00f0ff;
+      text-decoration: none;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+    .topbar-home-btn:hover {
+      background: linear-gradient(135deg, rgba(0,240,255,0.25), rgba(196,0,255,0.25));
+      border-color: rgba(0,240,255,0.6);
+      box-shadow: 0 0 20px rgba(0,240,255,0.3);
+      transform: translateY(-1px);
+    }
+    .topbar-home-btn svg { fill: #00f0ff; }
+    .topbar-menu-btn {
+      background: none;
+      border: none;
+      color: rgba(200,220,255,0.8);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .topbar-menu-btn:hover {
+      background: rgba(0,240,255,0.1);
+      color: #00f0ff;
+    }
+
+    /* サイドバー */
+    .mtp-sidebar {
+      position: fixed;
+      top: var(--topbar-h);
+      left: 0;
+      width: var(--sidebar-col);
+      height: calc(100vh - var(--topbar-h));
+      background: rgba(5, 8, 22, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-right: 1px solid rgba(0,240,255,0.12);
+      display: flex;
+      flex-direction: column;
+      padding: 16px 0;
+      z-index: 900;
+      overflow: hidden;
+      transition: width 0.25s cubic-bezier(0.4,0,0.2,1);
+      scrollbar-width: none;
+    }
+    .mtp-sidebar::-webkit-scrollbar { display: none; }
+    .mtp-sidebar.expanded { width: var(--sidebar-w); overflow-y: auto; }
+
+    .mtp-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 14px;
+      height: 44px;
+      min-height: 44px;
+      border-radius: 12px;
+      margin: 2px 8px;
+      cursor: pointer;
+      color: rgba(200,220,255,0.7);
+      text-decoration: none;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .mtp-nav-item:hover {
+      background: rgba(0,240,255,0.08);
+      color: #00f0ff;
+      border-color: rgba(0,240,255,0.2);
+    }
+    .mtp-nav-item.active {
+      background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(196,0,255,0.12));
+      color: #00f0ff;
+      border: 1px solid rgba(0,240,255,0.25);
+    }
+    .mtp-nav-item svg {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+    .mtp-nav-label {
+      opacity: 0;
+      transition: opacity 0.15s;
+      font-size: 13px;
+    }
+    .mtp-sidebar.expanded .mtp-nav-label { opacity: 1; }
+
+    /* Homeボタン専用 */
+    .mtp-nav-item.home-btn {
+      background: linear-gradient(135deg, rgba(0,240,255,0.1), rgba(196,0,255,0.1));
+      border: 1px solid rgba(0,240,255,0.2);
+      color: #00f0ff;
+    }
+    .mtp-nav-item.home-btn:hover {
+      background: linear-gradient(135deg, rgba(0,240,255,0.22), rgba(196,0,255,0.22));
+      border-color: rgba(0,240,255,0.5);
+      box-shadow: 0 0 15px rgba(0,240,255,0.2);
+    }
+    .mtp-sidebar.expanded .mtp-nav-item.home-btn .mtp-nav-label {
+      background: var(--gradient-neon);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    .mtp-nav-divider {
+      border: none;
+      border-top: 1px solid rgba(0,240,255,0.08);
+      margin: 8px 12px;
+    }
+    .mtp-nav-section {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(0,240,255,0.4);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 14px 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      opacity: 0;
+      height: 0;
+      transition: opacity 0.15s;
+    }
+    .mtp-sidebar.expanded .mtp-nav-section { opacity: 1; height: auto; }
+
+    /* メインコンテンツエリア */
+    .mtp-content {
+      margin-left: var(--sidebar-col);
+      padding-top: var(--topbar-h);
+      transition: margin-left 0.25s cubic-bezier(0.4,0,0.2,1);
+      min-height: 100vh;
+    }
+    .mtp-sidebar.expanded ~ .mtp-content {
+      margin-left: var(--sidebar-w);
+    }
+
+    @media (max-width: 768px) {
+      .mtp-sidebar { display: none; }
+      .mtp-content { margin-left: 0 !important; }
+      .topbar { padding: 0 12px; }
+    }
+  </style>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <button class="topbar-menu-btn" id="mtpMenuBtn" aria-label="メニュー">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+    </button>
+    <a href="/youtube-pro" class="topbar-logo">
+      <img src="/min-img.png" alt="Logo">
+      <span class="topbar-title">SakuTube‑Pro</span>
+    </a>
+    <div class="topbar-spacer"></div>
+    <a href="/" class="topbar-home-btn">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      Home
+    </a>
+  </div>
+
+  <!-- Sidebar -->
+  <nav class="mtp-sidebar" id="mtpSidebar">
+    <a href="/" class="mtp-nav-item home-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span class="mtp-nav-label">Home</span>
+    </a>
+    <hr class="mtp-nav-divider">
+    <div class="mtp-nav-section">Video</div>
+    <a href="/" class="mtp-nav-item">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 13-7-4 7-4v8z"/></svg>
+      <span class="mtp-nav-label">YouTube Pro</span>
+    </a>
+    <a href="/dl-pro" class="mtp-nav-item">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.28L13 17v5l5-3-1.22-1.22C19.91 16.26 22 13.28 22 10c0-5.18-3.94-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.28 2.09 6.26 5.22 7.78L6 21l5 3v-5l-2.28 2.28C6.81 20 5 17.21 5 14c0-4.08 3.05-7.44 7-7.93V2.05z"/></svg>
+      <span class="mtp-nav-label">STUDY2525</span>
+    </a>
+    <hr class="mtp-nav-divider">
+    <div class="mtp-nav-section">Tools</div>
+    <a href="/ai" class="mtp-nav-item">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+      <span class="mtp-nav-label">AI</span>
+    </a>
+    <a href="/code" class="mtp-nav-item">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+      <span class="mtp-nav-label">Code Edit</span>
+    </a>
+    <a href="/chat" class="mtp-nav-item">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+      <span class="mtp-nav-label">Chat</span>
+    </a>
+    <hr class="mtp-nav-divider">
+    <div class="mtp-nav-section">Proxy</div>
+    <a href="/proxy" class="mtp-nav-item">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      <span class="mtp-nav-label">Proxy</span>
+    </a>
+    <a href="/game" class="mtp-nav-item">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5S14.67 12 15.5 12s1.5.67 1.5 1.5S16.33 15 15.5 15zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5S19.33 12 18.5 12z"/></svg>
+      <span class="mtp-nav-label">Games</span>
+    </a>
+  </nav>
+
+  <div class="mtp-content">
+  <div class="wrap" role="main" style="padding-top: 24px;">
 
     <!-- Hero Section -->
     <header class="hero">
@@ -852,6 +1384,14 @@ button[class*="icon"], .btn-icon, [class*="icon-btn"] {
     </footer>
 
   </div>
+  </div><!-- /.mtp-content -->
+
+  <script>
+    // Sidebar toggle
+    document.getElementById('mtpMenuBtn').addEventListener('click', () => {
+      document.getElementById('mtpSidebar').classList.toggle('expanded');
+    });
+  </script>
 
   <script>
     // ── Optimized Typewriter ──
