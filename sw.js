@@ -1,8 +1,8 @@
-// MIN-Tube-Pro Service Worker
-const CACHE_NAME = 'min-tube-pro-v1';
+// SakuTube-Pro Service Worker
+const CACHE_NAME = 'sakutube-pro-v1';
 const PRECACHE = [
-  '/public/min-tube-pro.html',
-  '/img/min-tube-pro.png',
+  '/public/sakutube-pro.html',
+  '/img/sakutube-pro.png',
 ];
 
 // インストール時: 静的リソースをキャッシュ

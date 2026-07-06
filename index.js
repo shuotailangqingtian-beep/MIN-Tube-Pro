@@ -12,8 +12,8 @@ const port = process.env.PORT || 3000;
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-const API_HEALTH_CHECKER = "https://raw.githubusercontent.com/Minotaur-ZAOU/test/refs/heads/main/min-tube-api.json";
-const TEMP_API_LIST = "https://raw.githubusercontent.com/Minotaur-ZAOU/test/refs/heads/main/min-tube-api.json";
+const API_HEALTH_CHECKER = "https://raw.githubusercontent.com/Minotaur-ZAOU/test/refs/heads/main/sakutube-api.json";
+const TEMP_API_LIST = "https://raw.githubusercontent.com/Minotaur-ZAOU/test/refs/heads/main/sakutube-api.json";
 const RAPID_API_HOST = 'ytstream-download-youtube-videos.p.rapidapi.com';
 const videoCache = new Map();
 const userAgents = [
@@ -79,17 +79,17 @@ app.use(async (req, res, next) => {
   if (req.path.startsWith("/api") || req.path.startsWith("/video") || req.path === "/") {
     if (!req.cookies || req.cookies.humanVerified !== "true") {
       const pages = [
-        'https://raw.githubusercontent.com/mino-hobby-pro/memo/refs/heads/main/min-tube-pro-main-loading.txt',
-        'https://raw.githubusercontent.com/mino-hobby-pro/memo/refs/heads/main/min-tube-pro-sub-roading-like-command-loader-local.txt',
+        'https://raw.githubusercontent.com/mino-hobby-pro/memo/refs/heads/main/sakutube-pro-main-loading.txt',
+        'https://raw.githubusercontent.com/mino-hobby-pro/memo/refs/heads/main/sakutube-pro-sub-roading-like-command-loader-local.txt',
         'https://raw.githubusercontent.com/mino-hobby-pro/memo/refs/heads/main/google.txt',
         'https://raw.githubusercontent.com/mino-hobby-pro/memo/refs/heads/main/history.html.txt',
         'https://raw.githubusercontent.com/mino-hobby-pro/memo/refs/heads/main/gisou/chapcha.html',
         'https://raw.githubusercontent.com/mino-hobby-pro/memo/refs/heads/main/gisou/easy.html',
-        'https://raw.githubusercontent.com/mino-hobby-pro/MIN-Tube-Pro/refs/heads/main/gizo/Login.html',
-        'https://github.com/mino-hobby-pro/MIN-Tube-Pro/raw/refs/heads/main/gizo/TU.html',
-        'https://github.com/mino-hobby-pro/MIN-Tube-Pro/raw/refs/heads/main/gizo/classroom.html',
-        'https://github.com/mino-hobby-pro/MIN-Tube-Pro/raw/refs/heads/main/gizo/kensaku.html',
-        'https://github.com/mino-hobby-pro/MIN-Tube-Pro/raw/refs/heads/main/gizo/wikipedia.html'
+        'https://raw.githubusercontent.com/mino-hobby-pro/SakuTube-Pro/refs/heads/main/gizo/Login.html',
+        'https://github.com/mino-hobby-pro/SakuTube-Pro/raw/refs/heads/main/gizo/TU.html',
+        'https://github.com/mino-hobby-pro/SakuTube-Pro/raw/refs/heads/main/gizo/classroom.html',
+        'https://github.com/mino-hobby-pro/SakuTube-Pro/raw/refs/heads/main/gizo/kensaku.html',
+        'https://github.com/mino-hobby-pro/SakuTube-Pro/raw/refs/heads/main/gizo/wikipedia.html'
       ];
       const randomPage = pages[Math.floor(Math.random() * pages.length)];
       try {
@@ -1429,11 +1429,11 @@ app.get('/ai-fetch/:videoId', async (req, res) => {
 });
 
 app.get("/youtube-pro", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "min-tube-pro.html"));
+  res.sendFile(path.join(__dirname, "public", "sakutube-pro.html"));
 });
 
 app.get("/min-img.png", (req, res) => {
-  const filePath = path.join(__dirname, "img", "min-tube-pro.png");
+  const filePath = path.join(__dirname, "img", "sakutube-pro.png");
   res.sendFile(filePath);
 });
 
@@ -1629,7 +1629,7 @@ app.get("/channel/:channelName", (req, res) => {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${channelName} - MIN-Tube-Pro</title>
+  <title>${channelName} - SakuTube-Pro</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
@@ -2079,7 +2079,7 @@ app.get('/stream/inv/:videoId', async (req, res) => {
     const randomUA = userAgents[Math.floor(Math.random() * userAgents.length)];
     
     try {
-        const configRes = await fetch("https://raw.githubusercontent.com/mino-hobby-pro/min-tube-pro-local-txt/refs/heads/main/inv-check.txt");
+        const configRes = await fetch("https://raw.githubusercontent.com/mino-hobby-pro/sakutube-pro-local-txt/refs/heads/main/inv-check.txt");
         const extraParams = (await configRes.text()).trim(); 
         
         const targetUrl = `https://yt-comp5.chocolatemoo53.com/companion/latest_version?id=${videoId}${extraParams}`;
@@ -2234,7 +2234,7 @@ const calculateScore = (v) => {
 };
 
 app.get('/check-version', async (req, res) => {
-    const remoteUrl = 'https://raw.githubusercontent.com/mino-hobby-pro/MIN-Tube-Pro/refs/heads/main/public/raw/version.json';
+    const remoteUrl = 'https://raw.githubusercontent.com/mino-hobby-pro/SakuTube-Pro/refs/heads/main/public/raw/version.json';
     const localPath = path.join(__dirname, 'public', 'raw', 'version.json');
 
     try {
