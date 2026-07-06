@@ -2412,4 +2412,4 @@ app.use((err, req, res, next) => {
   res.status(500).sendFile(path.join(__dirname, "public", "error.html"));
 });
 
-app.listen(port, () => console.log(`Server is running on port \${port}`));
+app.listen(port, '0.0.0.0', () => console.log(`Server is running on port ${port}`));
