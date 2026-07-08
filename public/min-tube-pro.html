@@ -758,8 +758,10 @@ a:hover::after {
       padding-top: var(--topbar-h);
       transition: margin-left 0.25s cubic-bezier(0.4,0,0.2,1);
       min-height: 100vh;
+      position: relative;
+      z-index: 5;
     }
-    .mtp-sidebar.expanded ~ .mtp-content {
+    .mtp-sidebar.expanded + .mtp-content {
       margin-left: var(--sidebar-w);
     }
 
@@ -884,149 +886,11 @@ a:hover::after {
               <p class="app-desc">平均0.02秒の超高速ロード。究極のYoutube代替インスタンスをHTML1枚で実現。</p>
             </div>
           </div>
-          <div class="card-footer">
-            <span class="app-path">/dl-pro</span>
-            <span class="app-badge">Ultra-Fast</span>
-          </div>
-       
-<style>
-/* ═══════════════════════════════════════════════════════════════
-   OPTIMIZED BUTTON LAYOUT & POSITIONING
-   ═══════════════════════════════════════════════════════════════ */
-
-/* Button Container Flexbox */
-.button-container, [class*="button-group"], [class*="btn-group"], 
-.controls, [class*="action-bar"] {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 12px !important;
-  align-items: center !important;
-  justify-content: center !important;
-  margin: 20px 0 !important;
-}
-
-/* Horizontal Button Layout */
-.button-row, [class*="btn-row"] {
-  display: flex !important;
-  gap: 10px !important;
-  flex-wrap: wrap !important;
-  justify-content: space-around !important;
-}
-
-/* Vertical Button Layout */
-.button-column, [class*="btn-column"] {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 10px !important;
-}
-
-/* Primary Action Button */
-button[class*="primary"], .btn-primary, [class*="action-primary"] {
-  flex: 1 1 auto !important;
-  min-width: 120px !important;
-  order: 1 !important;
-}
-
-/* Secondary Action Button */
-button[class*="secondary"], .btn-secondary, [class*="action-secondary"] {
-  flex: 1 1 auto !important;
-  min-width: 100px !important;
-  order: 2 !important;
-}
-
-/* Tertiary Action Button */
-button[class*="tertiary"], .btn-tertiary, [class*="action-tertiary"] {
-  flex: 1 1 auto !important;
-  min-width: 90px !important;
-  order: 3 !important;
-}
-
-/* Icon Button */
-button[class*="icon"], .btn-icon, [class*="icon-btn"] {
-  padding: 10px 14px !important;
-  min-width: auto !important;
-  border-radius: 50% !important;
-}
-
-/* Floating Action Button */
-.fab, [class*="floating-btn"], [class*="float-action"] {
-  position: fixed !important;
-  bottom: 30px !important;
-  right: 30px !important;
-  width: 60px !important;
-  height: 60px !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 1000 !important;
-  box-shadow: var(--shadow-neon-lg) !important;
-}
-
-/* Responsive Button Layout */
-@media (max-width: 768px) {
-  .button-container, [class*="button-group"] {
-    flex-direction: column !important;
-    gap: 8px !important;
-  }
-  
-  button, .btn-primary, [class*="btn"] {
-    width: 100% !important;
-    min-width: unset !important;
-  }
-  
-  .fab, [class*="floating-btn"] {
-    bottom: 20px !important;
-    right: 20px !important;
-    width: 50px !important;
-    height: 50px !important;
-  }
-}
-
-/* Button Spacing Utilities */
-.btn-spacing-sm {
-  gap: 6px !important;
-}
-
-.btn-spacing-md {
-  gap: 12px !important;
-}
-
-.btn-spacing-lg {
-  gap: 20px !important;
-}
-
-/* Centered Button Layout */
-.btn-center {
-  display: flex !important;
-  justify-content: center !important;
-  gap: 12px !important;
-  flex-wrap: wrap !important;
-}
-
-/* Spread Button Layout */
-.btn-spread {
-  display: flex !important;
-  justify-content: space-between !important;
-  gap: 12px !important;
-  flex-wrap: wrap !important;
-}
-
-/* Stacked Button Layout */
-.btn-stack {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 10px !important;
-}
-
-/* Inline Button Layout */
-.btn-inline {
-  display: inline-flex !important;
-  gap: 8px !important;
-  align-items: center !important;
-}
-</style>
- </article>
+	          <div class="card-footer">
+	            <span class="app-path">/dl-pro</span>
+	            <span class="app-badge">Ultra-Fast</span>
+	          </div>
+	        </article>
 
         <article class="card" data-endpoint="/wista">
           <div class="card-top">
@@ -1441,17 +1305,15 @@ button[class*="icon"], .btn-icon, [class*="icon-btn"] {
       card.addEventListener('keydown', e => { if (e.key === 'Enter') run(); });
     });
 
-    // ── Service Worker ──
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
-    }
-  
-<script>
-// Override authentication to allow access without account
-const originalS5 = window.S5 || (() => localStorage.getItem('tube_auth') === 'true');
-window.S5 = () => true; // Always allow access
-console.log('✅ Authentication bypass enabled - Access without account allowed');
-</script>
-</script>
+	    // ── Service Worker ──
+	    if ('serviceWorker' in navigator) {
+	      navigator.serviceWorker.register('/sw.js').catch(() => {});
+	    }
+	
+	    // Override authentication to allow access without account
+	    const originalS5 = window.S5 || (() => localStorage.getItem('tube_auth') === 'true');
+	    window.S5 = () => true; // Always allow access
+	    console.log('✅ Authentication bypass enabled - Access without account allowed');
+	  </script>
 </body>
 </html>
