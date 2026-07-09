@@ -1190,6 +1190,7 @@
               <option value="YoutubeEdu-Scratch">YoutubeEdu-Scratch</option>
               <option value="Youtube-Pro">Youtube-Pro</option>
               <option value="Elixir-Network">Elixir-Network</option>
+              <option value="auto">自動切り替え（オートフォールバック）</option>
             </select>
             <div class="playback-hint" id="playbackHint">Googlevideoのストリームで再生します。</div>
           </div>
@@ -1443,10 +1444,16 @@ if (!currentUrl.includes("projects") && !currentUrl.includes("private") && !curr
     async function fetchEndpoint(endpoint) {
       try {
         const res = await fetch(endpoint);
-        if (!res.ok) return [];
+        if (!res.ok) throw new Error("API Error");
         const data = await res.json();
         return data.items || [];
       } catch (err) {
+        console.warn("Endpoint failed:", endpoint, err);
+        // フォールバック：トレンドが失敗した場合は検索エンドポイントを試すなど
+        if (endpoint.includes('/api/trending')) {
+          console.log("Falling back to search-based trending...");
+          return fetchEndpoint('/api/search?q=trending&page=0');
+        }
         return [];
       }
     }

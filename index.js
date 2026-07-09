@@ -680,23 +680,28 @@ const streamEmbedPlaceholder = `<div style="width:100%;height:100%;display:flex;
     }
     updateSubBtnUI();
 
-    async function changeServer(serverName, endpointPath, event) {
-        // --- 修正箇所：サーバー名を localStorage に保存 ---
-        localStorage.setItem('playbackMode', serverName);
+    const serverEndpoints = {
+        'googlevideo':        '',
+        'youtube-nocookie':   '/nocookie/${videoId}',
+        'DL-Pro':             '/360/${videoId}',
+        'YoutubeEdu-Kahoot':  '/kahoot-edu/${videoId}',
+        'YoutubeEdu-Scratch': '/scratch-edu/${videoId}',
+        'Youtube-Pro':        '/pro-stream/${videoId}',
+        'Elixir-Network':     '/elixir-stream/${videoId}'
+    };
+
+    async function changeServer(serverName, endpointPath, event, isAutoRetry = false) {
+        if (!isAutoRetry) {
+            localStorage.setItem('playbackMode', serverName);
+        }
 
         document.getElementById('serverMenu').classList.remove('show');
         const options = document.querySelectorAll('.server-option');
         options.forEach(opt => opt.classList.remove('active'));
         
-        // メニュー上の active 状態を同期
-        if (event && event.currentTarget) {
-            event.currentTarget.classList.add('active');
-        } else {
-            // 自動起動時などは文字列検索で active を付与
-            options.forEach(opt => {
-               if (opt.getAttribute('onclick').includes("'" + serverName + "'")) opt.classList.add('active');
-            });
-        }
+        options.forEach(opt => {
+           if (opt.getAttribute('onclick').includes("'" + serverName + "'")) opt.classList.add('active');
+        });
 
         const overlay = document.getElementById('videoLoadingOverlay');
         overlay.classList.add('active');
@@ -704,7 +709,7 @@ const streamEmbedPlaceholder = `<div style="width:100%;height:100%;display:flex;
         try {
             let newUrl = '';
             if (serverName === 'googlevideo') {
-                newUrl = "${videoData.stream_url}" === "youtube-nocookie" ? \`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1\` : "${videoData.stream_url}";
+                newUrl = "${videoData.stream_url}" === "youtube-nocookie" ? `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1` : "${videoData.stream_url}";
             } else if (serverName === 'Youtube-Pro') {
                 newUrl = endpointPath;
             } else {
@@ -719,31 +724,31 @@ const streamEmbedPlaceholder = `<div style="width:100%;height:100%;display:flex;
 
             let playerHtml = '';
             if (isIframe) {
-                playerHtml = \`<iframe id="mainIframe" src="\${newUrl}" frameborder="0" allowfullscreen style="width:100%; height:100%; position:relative; z-index:10;"></iframe>\`;
+                playerHtml = `<iframe id="mainIframe" src="${newUrl}" frameborder="0" allowfullscreen style="width:100%; height:100%; position:relative; z-index:10;"></iframe>`;
             } else {
-                playerHtml = \`<video id="mainPlayer" controls autoplay style="width:100%; height:100%; position:relative; z-index:10; background:#000;"><source src="\${newUrl}" type="video/mp4"></video>\`;
+                playerHtml = `<video id="mainPlayer" controls autoplay style="width:100%; height:100%; position:relative; z-index:10; background:#000;"><source src="${newUrl}" type="video/mp4"></video>`;
             }
             playerContainer.innerHTML = playerHtml;
+            
             const newVideo = document.getElementById('mainPlayer');
             if (newVideo) { 
                 newVideo.load(); 
-                newVideo.play().catch(e => console.log("Auto")); 
-
-                if (serverName === 'googlevideo' && !window.googlevideoReloaded) {
-                    window.googlevideoReloaded = true;
-                    setTimeout(() => {
-                        const vid = document.getElementById('mainPlayer');
-                        if (vid) {
-                            const currentTime = vid.currentTime;
-                            const isPlaying = !vid.paused;
-                            vid.load();
-                            vid.currentTime = currentTime;
-                            if (isPlaying) vid.play().catch(e => {});
-                        }
-                    }, 2000);
-                }
+                newVideo.play().catch(e => console.log("AutoPlay blocked")); 
             }
-        } catch (error) { console.error(error); } finally { overlay.classList.remove('active'); }
+        } catch (error) { 
+            console.error("Playback failed on " + serverName + ":", error);
+            // オートフォールバック
+            const modes = Object.keys(serverEndpoints);
+            const currentIndex = modes.indexOf(serverName);
+            const nextMode = modes[(currentIndex + 1) % modes.length];
+            
+            console.log("Retrying with next server: " + nextMode);
+            setTimeout(() => {
+                changeServer(nextMode, serverEndpoints[nextMode], null, true);
+            }, 1000);
+        } finally { 
+            overlay.classList.remove('active'); 
+        }
     }
 
     async function loadRecommendations() {
@@ -780,21 +785,12 @@ const streamEmbedPlaceholder = `<div style="width:100%;height:100%;display:flex;
     window.onload = () => {
         loadRecommendations();
 
-        // --- 修正箇所：保存された再生方法を即座に反映 ---
-        const savedMode = localStorage.getItem('playbackMode') || 'googlevideo';
-        const serverEndpoints = {
-            'googlevideo':        '',
-            'youtube-nocookie':   '/nocookie/${videoId}',
-            'DL-Pro':             '/360/${videoId}',
-            'YoutubeEdu-Kahoot':  '/kahoot-edu/${videoId}',
-            'YoutubeEdu-Scratch': '/scratch-edu/${videoId}',
-            'Youtube-Pro':        '/pro-stream/${videoId}',
-            'Elixir-Network': '/elixir-stream/${videoId}'
-        };
+        let savedMode = localStorage.getItem('playbackMode') || 'googlevideo';
+        if (savedMode === 'auto') savedMode = 'googlevideo'; // autoの場合は最初のサーバーから開始
+
         const serverName = serverEndpoints.hasOwnProperty(savedMode) ? savedMode : 'googlevideo';
         const endpointPath = serverEndpoints[serverName];
 
-        // 初期サーバー選択で起動
         changeServer(serverName, endpointPath, null);
     };
 
