@@ -7,7 +7,7 @@ const https = require("https");
 const fs = require('fs');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || process.env.SERVER_PORT || 3000;
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -2412,4 +2412,6 @@ app.use((err, req, res, next) => {
   res.status(500).sendFile(path.join(__dirname, "public", "error.html"));
 });
 
-app.listen(port, '0.0.0.0', () => console.log(`Server is running on port ${port}`));
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server is running on port ${port}`);
+});
