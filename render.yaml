@@ -1,7 +1,7 @@
 version: 1
 services:
   - type: web
-    name: studieeees
+    name: min-tube-pro
     env: node
     plan: free
     buildCommand: npm install
@@ -9,4 +9,4 @@ services:
     autoDeploy: true
     envVars:
       - key: NODE_VERSION
-        value: 16
+        value: 18
