@@ -54,7 +54,9 @@ async function updateApiListCache() {
 }
 
 updateApiListCache();
-setInterval(updateApiListCache, 1000 * 60 * 10);
+if (!process.env.VERCEL) {
+  setInterval(updateApiListCache, 1000 * 60 * 10);
+}
 
 function fetchWithTimeout(url, options = {}, timeout = 5000) {
   return Promise.race([
@@ -65,14 +67,16 @@ function fetchWithTimeout(url, options = {}, timeout = 5000) {
   ]);
 }
 
-setInterval(() => {
-    const now = Date.now();
-    for (const [videoId, cachedItem] of videoCache.entries()) {
-        if (cachedItem.expiry < now) {
-            videoCache.delete(videoId);
-        }
-    }
-}, 300000);
+if (!process.env.VERCEL) {
+  setInterval(() => {
+      const now = Date.now();
+      for (const [videoId, cachedItem] of videoCache.entries()) {
+          if (cachedItem.expiry < now) {
+              videoCache.delete(videoId);
+          }
+      }
+  }, 300000);
+}
 
 // ミドルウェア: 人間確認,
 app.use(async (req, res, next) => {
